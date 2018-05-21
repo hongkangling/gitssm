@@ -4,7 +4,6 @@ package com.example.web;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,13 +34,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ModelAndView login(User model, HttpSession session) {
+    public ModelAndView login(User model) {
          userDao.insert(model);
          User user =userDao.find(model).get(0);
         if (user == null || !user.getPassWord().equals(model.getPassWord())) {
             return new ModelAndView("redirect:login.jsp");
         } else {
-            session.setAttribute("user", user);
+           // session.setAttribute("user", user);
             ModelAndView mav = new ModelAndView();
             mav.setViewName("index");
             return mav;

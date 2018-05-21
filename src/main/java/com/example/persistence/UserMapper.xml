@@ -4,6 +4,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.persistence.UserMapper">
+   <cache eviction="LRU" type="com.example.utils.RedisCache" />
   <resultMap type="com.example.model.User" id="user">
     <result property="userId" column="user_id" />
     <result property="passWord" column="pass_word" />
