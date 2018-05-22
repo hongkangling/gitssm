@@ -30,7 +30,7 @@ public class RestUserController {
          return user;
     }
     @RequestMapping(value = "/getusers", method = RequestMethod.POST)
-    public List<User> getUser(@RequestParam String userName) {
-       return userDao.find(new User(userName,null));
+    public List<User> getUser(@RequestBody String userName) {
+       return userDao.find(new User(null,userName));
    }
 }
