@@ -17,14 +17,15 @@
 	<!--Spring-redis连接池管理工厂 -->
 	<bean id="jedisConnectionFactory"
 		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-		p:hostName="${redis.host}" p:port="${redis.port}" p:password="${redis.password}" p:pool-config-ref="poolConfig"
-		p:timeout="100000" />
+		p:hostName="${redis.host}" p:port="${redis.port}" p:password="${redis.password}"
+		p:pool-config-ref="poolConfig" p:timeout="100000" />
 	<!-- 使用中间类解决RedisCache.jedisConnectionFactory的静态注入，从而使MyBatis实现第三方缓存 -->
 	<bean id="redisCacheTransfer" class="com.example.utils.RedisCacheTransfer">
 		<property name="jedisConnectionFactory" ref="jedisConnectionFactory" />
 	</bean>
 	<!-- Jedis模板配置 -->
-	<!-- <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"> 
-		<property name="connectionFactory" ref="connectionFactory" /> </bean> -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+		<property name="jedisConnectionFactory" ref="jedisConnectionFactory" />
+	</bean>
 
 </beans>
